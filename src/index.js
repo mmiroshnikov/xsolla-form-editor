@@ -1,14 +1,15 @@
 import React, { Fragment } from 'react'
-import { Layout } from './components/Layout'
+
 import ReactDOM from 'react-dom';
 import { SimpleDragDemo } from './components/SimpleDragDemo';
+import { Layout } from './components/Layout';
 
 class App extends React.Component {
 
   render() {
     return (
       <Fragment>
-      <Layout/>
+        <Layout/>
       {/* <SimpleDragDemo/> */}
       </Fragment>
     )
