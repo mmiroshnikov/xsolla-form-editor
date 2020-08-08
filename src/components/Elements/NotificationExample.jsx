@@ -1,20 +1,21 @@
 import React, {PureComponent, Fragment} from 'react';
 import { FormGroup, Notification } from 'xsolla-uikit';
 
-class NotificationExample extends PureComponent<null, null> {
+class NotificationExample extends PureComponent {
   render() {
     return (
       <Fragment>
-
+        <FormGroup>
           <Notification title="Success" status="success" icon={true}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit et tempore quidem
             maiores? Doloribus, fugit!
           </Notification>
+        </FormGroup>
 
-          <Notification title="Warning" status="warning" icon={true}>
+          {/* <Notification title="Warning" status="warning" icon={true}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit et tempore quidem
             maiores? Doloribus, fugit!
-          </Notification>
+          </Notification> */}
 
           {/* <Notification title="Error" status="error" icon={true}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit et tempore quidem

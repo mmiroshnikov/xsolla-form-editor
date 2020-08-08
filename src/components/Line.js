@@ -1,16 +1,16 @@
 import React, { Fragment, useEffect, useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import styled, {css} from 'styled-components';
-import { Handle } from './Layout';
+
 import { ContentBlock, FormGroup } from 'xsolla-uikit';
 
 export function Line(props) {
   debugger
   const {children, handle} = {...props}
   return (
-    <FormGroup indentation='xs'>
-    <Item {...props}>
-
+<FormGroup>
+    <CssItem {...props}>
+<CssLeft>
       <Handle
           {...handle}>
           <svg
@@ -23,22 +23,60 @@ export function Line(props) {
               />
           </svg>
       </Handle>
-      {children}</Item>
+      </CssLeft>
+
+
+      <CssRight>
+        Hints
+      </CssRight>
+
+      <FormGroup>
+        {children}
+      </FormGroup>
+
+
+
+
+      </CssItem>
       </FormGroup>
   )
 }
 
+const CssLeft = styled.div`
+position: absolute;
+margin-left: -90px;
 
+`
+const CssRight = styled.div`
+  /* background: #fafbfc; */
+  padding: 8px 0 0 16px;
+  position: absolute;
+  left: calc(100% - 80px);
+  right: 0;
+`
 
-const Item = styled.div`
-display: flex;
-/* user-select: none; */
-/* padding: 0.5rem; */
-align-items: flex-start;
-align-content: flex-start;
-/* line-height: 1.5; */
-/* border-radius: 3px; */
+const CssItem = styled.div`
+display:relative;
+padding: 0 120px;
+/* display: grid; */
+/* grid-template-columns: 80px 1fr 200px; */
+/* grid-column-gap: 24px; */
 
 border: 1px
   ${props => (props.isDragging ? 'dashed #4099ff' : 'none #ddd')};
 `
+
+
+export const Handle = styled.div`
+    display: flex;
+    align-items: center;
+    align-content: center;
+    user-select: none;
+    /* margin: -0.5rem 0.5rem -0.5rem -0.5rem; */
+    padding: 0.5rem;
+
+    /* border-radius: 3px 0 0 3px; */
+    background: #fff;
+    /* border-right: 1px solid #ddd; */
+    color: #000;
+`;

@@ -28,7 +28,6 @@ const CssNoticeText = styled.div`
     align-content: center;
     justify-content: center;
     /* border: 1px solid transparent; */
-    line-height: 1.5;
     /* color: #aaa; */
     padding: 24px;
 `;

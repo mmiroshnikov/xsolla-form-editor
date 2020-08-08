@@ -64,21 +64,6 @@ const Clone = styled(Line)`
 
 
 
-export const Handle = styled.div`
-    display: flex;
-    align-items: center;
-    align-content: center;
-    user-select: none;
-    margin: -0.5rem 0.5rem -0.5rem -0.5rem;
-    padding: 0.5rem;
-    line-height: 1.5;
-    border-radius: 3px 0 0 3px;
-    background: #fff;
-    border-right: 1px solid #ddd;
-    color: #000;
-`;
-
-
 
 
 
@@ -167,9 +152,10 @@ export class Layout extends Component {
             <CssBody>
 
 
-            <Droppable droppableId="ITEMS" isDropDisabled={true}>
+                <Droppable droppableId="ITEMS" isDropDisabled={true}>
                     {(provided, snapshot) => (
                         <Palette
+                          // filter='analytics'
                           provided={provided}
                           snapshot={snapshot}
                           innerRef={provided.innerRef}
@@ -178,8 +164,9 @@ export class Layout extends Component {
                     )}
                 </Droppable>
 
+
+
                 <Content>
-            <ContentBlock>
 
                 <AddSection handle={this.addList}/>
 
@@ -189,6 +176,9 @@ export class Layout extends Component {
                     {Object.keys(this.state).map((list, i) => {
                         console.log('==> list', list);
                         return (
+                          <FormGroup indentation='lg'>
+            <ContentBlock>
+
                             <Droppable key={list} droppableId={list}>
                                 {(provided, snapshot) => (
                                     <Container
@@ -240,9 +230,11 @@ export class Layout extends Component {
 
                                 )}
                             </Droppable>
+                            </ContentBlock>
+                            </FormGroup>
                         );
                     })}
-                </ContentBlock>
+
                 </Content>
 
 

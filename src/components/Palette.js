@@ -12,7 +12,10 @@ import { Element } from './Element'
 import { List } from './Container'
 
 export function Palette(props) {
-  const { provided, snapshot } = { ...props }
+  const { provided, snapshot, filter } = { ...props }
+
+let items = !filter ? ITEMS : ITEMS.filter(one => one['type'] === filter)
+
   return (
     <CssPalette>
       <Kiosk
@@ -21,7 +24,7 @@ export function Palette(props) {
         innerRef={provided.innerRef}
         isDraggingOver={snapshot.isDraggingOver}
       >
-        {ITEMS.map((item, index) => (
+        {items.map((item, index) => (
           <Draggable
             key={item.id}
             draggableId={item.id}
@@ -51,11 +54,11 @@ export function Palette(props) {
 }
 
 const Kiosk = styled(List)`
-  /* position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 200px; */
+  /* position: absolute; */
+  /* top: 0; */
+  /* right: 0; */
+  /* bottom: 0; */
+  width: 200px;
 `
 
 const CssPalette = styled.div`
