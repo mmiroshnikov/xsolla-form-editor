@@ -58,15 +58,7 @@ export const Uikit = ({component = 'input'}) => {
           />
       }
 
-      {component === 'input' &&
-          <Input
-            name="basic-input"
-            input={{
-              value: 'Input',
-              onChange: ()=> void(0)
-            }}
-          />
-      }
+
       {component === 'notification' &&
          <NotificationExample/>
       }
