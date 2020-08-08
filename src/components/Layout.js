@@ -4,6 +4,7 @@ import uuid from 'uuid/v4';
 import styled from 'styled-components';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 // import console = require('console');
+import { Line } from './Line';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -58,7 +59,7 @@ const Item = styled.div`
     border: 1px ${props => (props.isDragging ? 'dashed #4099ff' : 'solid #ddd')};
 `;
 
-const Clone = styled(Item)`
+const Clone = styled(Line)`
     + div {
         display: none !important;
     }
@@ -223,7 +224,7 @@ export class Layout extends Component {
                                     index={index}>
                                     {(provided, snapshot) => (
                                         <React.Fragment>
-                                            <Item
+                                            <Line
                                                 innerRef={provided.innerRef}
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
@@ -233,7 +234,7 @@ export class Layout extends Component {
                                                         .style
                                                 }>
                                                 {item.content}
-                                            </Item>
+                                            </Line>
                                             {snapshot.isDragging && (
                                                 <Clone>{item.content}</Clone>
                                             )}
@@ -275,7 +276,7 @@ export class Layout extends Component {
                                                               provided,
                                                               snapshot
                                                           ) => (
-                                                              <Item
+                                                              <Line
                                                                   innerRef={
                                                                       provided.innerRef
                                                                   }
@@ -301,7 +302,7 @@ export class Layout extends Component {
                                                                       </svg>
                                                                   </Handle>
                                                                   {item.content}
-                                                              </Item>
+                                                              </Line>
                                                           )}
                                                       </Draggable>
                                                   )
