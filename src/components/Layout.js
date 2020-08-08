@@ -11,6 +11,7 @@ import { Button, FormGroup } from 'xsolla-uikit';
 import { List, Container } from './Container';
 import { AddSection } from './AddSection';
 import { Notice } from './Notice';
+import { Palette } from './Palette';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -78,13 +79,6 @@ export const Handle = styled.div`
 `;
 
 
-const Kiosk = styled(List)`
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 200px;
-`;
 
 
 
@@ -171,37 +165,15 @@ export class Layout extends Component {
         return (
           <CssBody>
             <DragDropContext onDragEnd={this.onDragEnd}>
+
                 <Droppable droppableId="ITEMS" isDropDisabled={true}>
                     {(provided, snapshot) => (
-                        <Kiosk
-                            innerRef={provided.innerRef}
-                            isDraggingOver={snapshot.isDraggingOver}>
-                            {ITEMS.map((item, index) => (
-                                <Draggable
-                                    key={item.id}
-                                    draggableId={item.id}
-                                    index={index}>
-                                    {(provided, snapshot) => (
-                                        <React.Fragment>
-                                            <Element
-                                                innerRef={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                                isDragging={snapshot.isDragging}
-                                                style={
-                                                    provided.draggableProps
-                                                        .style
-                                                }>
-                                                {item.content}
-                                            </Element>
-                                            {snapshot.isDragging && (
-                                                <Element>{item.content}</Element>
-                                            )}
-                                        </React.Fragment>
-                                    )}
-                                </Draggable>
-                            ))}
-                        </Kiosk>
+                        <Palette
+                          provided={provided}
+                          snapshot={snapshot}
+                          innerRef={provided.innerRef}
+                          isDraggingOver={snapshot.isDraggingOver}>
+                        </Palette>
                     )}
                 </Droppable>
 

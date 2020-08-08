@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import uuid from 'uuid/v4';
 import { Input } from 'xsolla-uikit';
+import NotificationExample from '../components/Elements/NotificationExample';
 export const ITEMS = [
   {
       id: uuid(),
@@ -8,10 +9,11 @@ export const ITEMS = [
       // component: <PaInput/>
       componentId: 'input'
   },
-  // {
-  //     id: uuid(),
-  //     content: 'Copy'
-  // },
+  {
+      id: uuid(),
+      content: 'Notification',
+      componentId: 'notification',
+  },
   // {
   //     id: uuid(),
   //     content: 'Image'
@@ -44,7 +46,9 @@ export const PaInput = () => {
 
 export const Uikit = ({component = 'input'}) => {
   return (
-    <Fragment>{component === 'input' &&
+    <Fragment>
+
+      {component === 'input' &&
           <Input
             name="basic-input"
             input={{
@@ -52,6 +56,19 @@ export const Uikit = ({component = 'input'}) => {
               onChange: ()=> void(0)
             }}
           />
+      }
+
+      {component === 'input' &&
+          <Input
+            name="basic-input"
+            input={{
+              value: 'Input',
+              onChange: ()=> void(0)
+            }}
+          />
+      }
+      {component === 'notification' &&
+         <NotificationExample/>
       }
 
     </Fragment>
