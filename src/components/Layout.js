@@ -7,7 +7,9 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Line } from './Line';
 import { Element } from './Element';
 import { ITEMS, Uikit } from '../data/elements';
-import { Button } from 'xsolla-uikit';
+import { Button, FormGroup } from 'xsolla-uikit';
+import { List, Container } from './Container';
+import { AddSection } from './AddSection';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -46,7 +48,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 };
 
 const Content = styled.div`
-    margin-right: 300px;
+    margin: 80px 300px 80px 80px;
 `;
 
 
@@ -56,6 +58,9 @@ const Clone = styled(Line)`
         display: none !important;
     }
 `;
+
+
+
 
 export const Handle = styled.div`
     display: flex;
@@ -71,15 +76,6 @@ export const Handle = styled.div`
     color: #000;
 `;
 
-const List = styled.div`
-    border: 1px
-        ${props => (props.isDraggingOver ? 'dashed #000' : 'none #ddd')};
-    background: #fff;
-    padding: 0.5rem 0.5rem 0;
-    border-radius: 3px;
-    flex: 0 0 150px;
-    font-family: sans-serif;
-`;
 
 const Kiosk = styled(List)`
     position: absolute;
@@ -89,10 +85,7 @@ const Kiosk = styled(List)`
     width: 200px;
 `;
 
-const Container = styled(List)`
-    margin: 16px;
-    padding-bottom: 8px;
-`;
+
 
 const Notice = styled.div`
     display: flex;
@@ -229,16 +222,8 @@ export class Layout extends Component {
 
                 <Content>
 
+                <AddSection handle={this.addList}/>
 
-                    <Button onClick={this.addList}>
-                        <svg width="24" height="24" viewBox="0 0 24 24">
-                            <path
-                                fill="currentColor"
-                                d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
-                            />
-                        </svg>
-                        <ButtonText>Add List</ButtonText>
-                    </Button>
 
 
 
@@ -252,6 +237,8 @@ export class Layout extends Component {
                                         isDraggingOver={
                                             snapshot.isDraggingOver
                                         }>
+
+                                          <FormGroup>
                                         {this.state[list].length
                                             ? this.state[list].map(
                                                   (item, index) => (
@@ -290,7 +277,9 @@ export class Layout extends Component {
                                                   </Notice>
                                               )}
                                         {provided.placeholder}
+                                        </FormGroup>
                                     </Container>
+
                                 )}
                             </Droppable>
                         );
