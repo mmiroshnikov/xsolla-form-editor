@@ -8,6 +8,7 @@ import {
   Draggable
 } from 'react-beautiful-dnd'
 // import console = require('console');
+import { Line } from './Line';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -62,21 +63,9 @@ const Content = styled.div`
   margin-right: 200px;
 `
 
-const Item = styled.div`
-  display: flex;
-  user-select: none;
-  padding: 0.5rem;
-  margin: 0 0 0.5rem 0;
-  align-items: flex-start;
-  align-content: flex-start;
-  line-height: 1.5;
-  border-radius: 3px;
-  background: #fff;
-  border: 1px
-    ${props => (props.isDragging ? 'dashed #4099ff' : 'solid #ddd')};
-`
 
-const Clone = styled(Item)`
+
+const Clone = styled(Line)`
   + div {
     display: none !important;
   }
@@ -206,26 +195,28 @@ export function Layout() {
         })
         break
       case 'ITEMS':
+        let newState = {...state,
+        [destination.droppableId]: copy(
+          ITEMS,
+          state[destination.droppableId],
+          source,
+          destination
+        )}
+        debugger
         setState({
-          ...state,
-          [destination.droppableId]: copy(
-            ITEMS,
-            state[destination.droppableId],
-            source,
-            destination
-          )
+          ...newState
         })
         break
       default:
-        setState(
+        setState({
           ...state,
-          move(
+          [destination.droppableId]: move(
             state[source.droppableId],
             state[destination.droppableId],
             source,
             destination
           )
-        )
+        })
         break
     }
   }
@@ -272,7 +263,7 @@ export function Palette() {
           >
             {(provided, snapshot) => (
               <React.Fragment>
-                <Item
+                <Line
                   innerRef={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
@@ -280,7 +271,7 @@ export function Palette() {
                   style={provided.draggableProps.style}
                 >
                   {item.content}
-                </Item>
+                </Line>
                 {snapshot.isDragging && (
                   <Clone>{item.content}</Clone>
                 )}
@@ -297,9 +288,10 @@ export function Palette() {
 
 export function Board({parentState, setParentState, addList}) {
 
+  const [state, setState] = useState(parentState)
+
   useEffect(() => {
-    console.log('parentState = ', parentState);
-    debugger
+    setState(parentState)
   }, [parentState])
 
   return (
@@ -313,7 +305,7 @@ export function Board({parentState, setParentState, addList}) {
       </svg>
       <ButtonText>Add List</ButtonText>
     </Button>
-    {Object.keys(parentState).map((list, i) => {
+    {Object.keys(state).map((list, i) => {
       console.log('==> list', list)
       return (
         <Droppable key={list} droppableId={list}>
@@ -322,15 +314,15 @@ export function Board({parentState, setParentState, addList}) {
               innerRef={provided.innerRef}
               isDraggingOver={snapshot.isDraggingOver}
             >
-              {parentState[list].length
-                ? parentState[list].map((item, index) => (
+              {state[list].length
+                ? state[list].map((item, index) => (
                     <Draggable
                       key={item.id}
                       draggableId={item.id}
                       index={index}
                     >
                       {(provided, snapshot) => (
-                        <Item
+                        <Line
                           innerRef={provided.innerRef}
                           {...provided.draggableProps}
                           isDragging={snapshot.isDragging}
@@ -349,7 +341,7 @@ export function Board({parentState, setParentState, addList}) {
                             </svg>
                           </Handle>
                           {item.content}
-                        </Item>
+                        </Line>
                       )}
                     </Draggable>
                   ))
