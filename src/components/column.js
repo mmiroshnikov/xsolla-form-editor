@@ -7,7 +7,7 @@ const Container = styled.div`
   margin: 8px;
   border: 1px solid lightgrey;
   border-radius: 2px;
-  width: 220px;
+  /* width: 220px; */
 
   display: flex;
   flex-direction: column;
@@ -24,19 +24,19 @@ const TaskList = styled.div`
     min-height: 100px;
 `
 
-export default class Column extends React.Component {
-  render() {
+export default function Column (props){
+    const {column, tasks} = {...props}
     return (
       <Container>
-        <Title>{this.props.column.title}</Title>
-        <Droppable droppableId={this.props.column.id} type="TASK">
+        <Title>{column.title}</Title>
+        <Droppable droppableId={column.id} type="TASK">
           {(provided, snapshot) => (
             <TaskList
               innerRef={provided.innerRef}
               {...provided.droppableProps}
               isDraggingOver={snapshot.isDraggingOver}
             >
-              {this.props.tasks.map((task, index) => (
+              {tasks.map((task, index) => (
                 <Task key={task.id} task={task} index={index} />
               ))}
               {provided.placeholder}
@@ -45,5 +45,5 @@ export default class Column extends React.Component {
         </Droppable>
       </Container>
     )
-  }
+
 }

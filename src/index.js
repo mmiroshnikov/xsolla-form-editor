@@ -8,7 +8,7 @@ import initialData from './initial-data'
 import Column from './components/Column'
 
 const Container = styled.div`
-  display:flex;
+  /* display:flex; */
 `
 
 class App extends React.Component {
