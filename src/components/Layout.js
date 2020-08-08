@@ -10,6 +10,7 @@ import { ITEMS, Uikit } from '../data/elements';
 import { Button, FormGroup } from 'xsolla-uikit';
 import { List, Container } from './Container';
 import { AddSection } from './AddSection';
+import { Notice } from './Notice';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -87,17 +88,7 @@ const Kiosk = styled(List)`
 
 
 
-const Notice = styled.div`
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    padding: 0.5rem;
-    margin: 0 0.5rem 0.5rem;
-    border: 1px solid transparent;
-    line-height: 1.5;
-    /* color: #aaa; */
-`;
+
 
 // const Button = styled.button`
 //     display: flex;
@@ -272,9 +263,8 @@ export class Layout extends Component {
                                                   )
                                               )
                                             : !provided.placeholder && (
-                                                  <Notice>
-                                                      Drop items here
-                                                  </Notice>
+                                                  <Notice />
+
                                               )}
                                         {provided.placeholder}
                                         </FormGroup>
