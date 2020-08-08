@@ -7,7 +7,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Line } from './Line';
 import { Element } from './Element';
 import { ITEMS, Uikit } from '../data/elements';
-import { Button, FormGroup } from 'xsolla-uikit';
+import { Button, FormGroup, ContentBlock } from 'xsolla-uikit';
 import { List, Container } from './Container';
 import { AddSection } from './AddSection';
 import { Notice } from './Notice';
@@ -50,7 +50,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 };
 
 const Content = styled.div`
-    margin: 80px 300px 80px 80px;
+    /* margin: 80px 300px 80px 80px; */
 `;
 
 
@@ -163,10 +163,11 @@ export class Layout extends Component {
     // But in this example everything is just done in one place for simplicity
     render() {
         return (
-          <CssBody>
-            <DragDropContext onDragEnd={this.onDragEnd}>
+          <DragDropContext onDragEnd={this.onDragEnd}>
+            <CssBody>
 
-                <Droppable droppableId="ITEMS" isDropDisabled={true}>
+
+            <Droppable droppableId="ITEMS" isDropDisabled={true}>
                     {(provided, snapshot) => (
                         <Palette
                           provided={provided}
@@ -177,13 +178,8 @@ export class Layout extends Component {
                     )}
                 </Droppable>
 
-
-
-
-
-
-
                 <Content>
+            <ContentBlock>
 
                 <AddSection handle={this.addList}/>
 
@@ -246,9 +242,18 @@ export class Layout extends Component {
                             </Droppable>
                         );
                     })}
+                </ContentBlock>
                 </Content>
-            </DragDropContext>
+
+
+
+
+
+
+
+
           </CssBody>
+            </DragDropContext>
         );
     }
 }
@@ -256,5 +261,10 @@ export class Layout extends Component {
 
 
 const CssBody = styled.div`
+padding: 80px;
 background: #f7faff;
+display: grid;
+grid-template-columns:  1fr 4fr;
+grid-column-gap: 64px;
+grid-row-gap: 64px;
 `

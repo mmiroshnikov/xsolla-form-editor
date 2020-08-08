@@ -32,13 +32,13 @@ export function Line(props) {
 
 const Item = styled.div`
 display: flex;
-/* user-select: none;
-padding: 0.5rem;
+/* user-select: none; */
+/* padding: 0.5rem; */
 align-items: flex-start;
 align-content: flex-start;
-line-height: 1.5;
-border-radius: 3px;
-background: #fff;
+/* line-height: 1.5; */
+/* border-radius: 3px; */
+
 border: 1px
-  ${props => (props.isDragging ? 'dashed #4099ff' : 'solid #ddd')}; */
+  ${props => (props.isDragging ? 'dashed #4099ff' : 'none #ddd')};
 `
