@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import Task from './Task'
 import { Droppable } from 'react-beautiful-dnd'
+import {FormGroup, ContentBlock} from 'xsolla-uikit'
+
 
 const Container = styled.div`
   margin: 8px;
@@ -26,9 +28,11 @@ const TaskList = styled.div`
 
 export default function Column (props){
     const {column, tasks} = {...props}
+    debugger
     return (
-      <Container>
-        <Title>{column.title}</Title>
+      <FormGroup indentation='lg'>
+        <ContentBlock >
+        {/* <Title>{column.title}</Title> */}
         <Droppable droppableId={column.id} type="TASK">
           {(provided, snapshot) => (
             <TaskList
@@ -43,7 +47,8 @@ export default function Column (props){
             </TaskList>
           )}
         </Droppable>
-      </Container>
+        </ContentBlock>
+      </FormGroup>
     )
 
 }

@@ -79,16 +79,22 @@ class App extends React.Component {
     this.setState(newState)
   }
 
+  palette = initialData['palette']
+  // paletteTasks = palette.taskIds.map(
+  //   taskId => this.state.tasks[taskId]
+  // )
   render() {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
+
+
+        {/* <Container>
+          <Column key={'palette'} column={this.palette} tasks={this.state.palette.taskIds.map(taskId => this.state.tasks[taskId])} />
+        </Container> */}
         <Container>
           {this.state.columnOrder.map(columnId => {
             const column = this.state.columns[columnId]
-            const tasks = column.taskIds.map(
-              taskId => this.state.tasks[taskId]
-            )
-
+            const tasks = column.taskIds.map(taskId => this.state.tasks[taskId])
             return (
               <Column key={column.id} column={column} tasks={tasks} />
             )

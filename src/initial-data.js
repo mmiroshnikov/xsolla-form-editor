@@ -5,9 +5,20 @@ const initialData = {
     'task-3': { id: 'task-3', content: 'Charge my phone' },
     'task-4': { id: 'task-4', content: 'Cook dinner' }
   },
+  palette: {
+      type: 'palette',
+      id: 'column-1',
+      title: 'To do',
+      taskIds: ['task-1', 'task-2', 'task-3', 'task-4']
+  },
   columns: {
+    'palette': {
+      type: 'palette',
+      id: 'column-1',
+      title: 'To do',
+      taskIds: ['task-1', 'task-2', 'task-3', 'task-4']
+    },
     'column-1': {
-      type: 'editor',
       id: 'column-1',
       title: 'To do',
       taskIds: ['task-1', 'task-2', 'task-3', 'task-4']
