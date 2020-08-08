@@ -5,6 +5,9 @@ import styled from 'styled-components';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 // import console = require('console');
 import { Line } from './Line';
+import { Element } from './Element';
+import { ITEMS, Uikit } from '../data/elements';
+import { Button } from 'xsolla-uikit';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -43,21 +46,10 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 };
 
 const Content = styled.div`
-    margin-right: 200px;
+    margin-right: 300px;
 `;
 
-const Item = styled.div`
-    display: flex;
-    user-select: none;
-    padding: 0.5rem;
-    margin: 0 0 0.5rem 0;
-    align-items: flex-start;
-    align-content: flex-start;
-    line-height: 1.5;
-    border-radius: 3px;
-    background: #fff;
-    border: 1px ${props => (props.isDragging ? 'dashed #4099ff' : 'solid #ddd')};
-`;
+
 
 const Clone = styled(Line)`
     + div {
@@ -65,7 +57,7 @@ const Clone = styled(Line)`
     }
 `;
 
-const Handle = styled.div`
+export const Handle = styled.div`
     display: flex;
     align-items: center;
     align-content: center;
@@ -81,7 +73,7 @@ const Handle = styled.div`
 
 const List = styled.div`
     border: 1px
-        ${props => (props.isDraggingOver ? 'dashed #000' : 'solid #ddd')};
+        ${props => (props.isDraggingOver ? 'dashed #000' : 'none #ddd')};
     background: #fff;
     padding: 0.5rem 0.5rem 0;
     border-radius: 3px;
@@ -98,8 +90,8 @@ const Kiosk = styled(List)`
 `;
 
 const Container = styled(List)`
-    margin: 0.5rem 0.5rem 1.5rem;
-    background: #ccc;
+    margin: 16px;
+    padding-bottom: 8px;
 `;
 
 const Notice = styled.div`
@@ -111,50 +103,29 @@ const Notice = styled.div`
     margin: 0 0.5rem 0.5rem;
     border: 1px solid transparent;
     line-height: 1.5;
-    color: #aaa;
+    /* color: #aaa; */
 `;
 
-const Button = styled.button`
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    margin: 0.5rem;
-    padding: 0.5rem;
-    color: #000;
-    border: 1px solid #ddd;
-    background: #fff;
-    border-radius: 3px;
-    font-size: 1rem;
-    cursor: pointer;
-`;
+// const Button = styled.button`
+//     display: flex;
+//     align-items: center;
+//     align-content: center;
+//     justify-content: center;
+//     margin: 0.5rem;
+//     padding: 0.5rem;
+//     color: #000;
+//     border: 1px solid #ddd;
+//     background: #fff;
+//     border-radius: 3px;
+//     font-size: 1rem;
+//     cursor: pointer;
+// `;
 
 const ButtonText = styled.div`
     margin: 0 1rem;
 `;
 
-const ITEMS = [
-    {
-        id: uuid(),
-        content: 'Headline'
-    },
-    {
-        id: uuid(),
-        content: 'Copy'
-    },
-    {
-        id: uuid(),
-        content: 'Image'
-    },
-    {
-        id: uuid(),
-        content: 'Slideshow'
-    },
-    {
-        id: uuid(),
-        content: 'Quote'
-    }
-];
+
 
 export class Layout extends Component {
     state = {
@@ -207,10 +178,14 @@ export class Layout extends Component {
         this.setState({ [uuid()]: [] });
     };
 
+
+
+
     // Normally you would want to split things out into separate components.
     // But in this example everything is just done in one place for simplicity
     render() {
         return (
+          <CssBody>
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <Droppable droppableId="ITEMS" isDropDisabled={true}>
                     {(provided, snapshot) => (
@@ -224,7 +199,7 @@ export class Layout extends Component {
                                     index={index}>
                                     {(provided, snapshot) => (
                                         <React.Fragment>
-                                            <Line
+                                            <Element
                                                 innerRef={provided.innerRef}
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
@@ -234,9 +209,9 @@ export class Layout extends Component {
                                                         .style
                                                 }>
                                                 {item.content}
-                                            </Line>
+                                            </Element>
                                             {snapshot.isDragging && (
-                                                <Clone>{item.content}</Clone>
+                                                <Element>{item.content}</Element>
                                             )}
                                         </React.Fragment>
                                     )}
@@ -245,7 +220,16 @@ export class Layout extends Component {
                         </Kiosk>
                     )}
                 </Droppable>
+
+
+
+
+
+
+
                 <Content>
+
+
                     <Button onClick={this.addList}>
                         <svg width="24" height="24" viewBox="0 0 24 24">
                             <path
@@ -255,6 +239,9 @@ export class Layout extends Component {
                         </svg>
                         <ButtonText>Add List</ButtonText>
                     </Button>
+
+
+
                     {Object.keys(this.state).map((list, i) => {
                         console.log('==> list', list);
                         return (
@@ -277,6 +264,7 @@ export class Layout extends Component {
                                                               snapshot
                                                           ) => (
                                                               <Line
+                                                                  handle={provided.dragHandleProps}
                                                                   innerRef={
                                                                       provided.innerRef
                                                                   }
@@ -289,19 +277,8 @@ export class Layout extends Component {
                                                                           .draggableProps
                                                                           .style
                                                                   }>
-                                                                  <Handle
-                                                                      {...provided.dragHandleProps}>
-                                                                      <svg
-                                                                          width="24"
-                                                                          height="24"
-                                                                          viewBox="0 0 24 24">
-                                                                          <path
-                                                                              fill="currentColor"
-                                                                              d="M3,15H21V13H3V15M3,19H21V17H3V19M3,11H21V9H3V11M3,5V7H21V5H3Z"
-                                                                          />
-                                                                      </svg>
-                                                                  </Handle>
-                                                                  {item.content}
+
+                                                                  <Uikit component={item.componentId}/>
                                                               </Line>
                                                           )}
                                                       </Draggable>
@@ -320,9 +297,13 @@ export class Layout extends Component {
                     })}
                 </Content>
             </DragDropContext>
+          </CssBody>
         );
     }
 }
 
-// Put the things into the DOM!
-// ReactDOM.render(<App />, document.getElementById('root'));
+
+
+const CssBody = styled.div`
+background: #f7faff;
+`
