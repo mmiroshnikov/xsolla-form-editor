@@ -4,20 +4,24 @@ import styled, {css} from 'styled-components';
 import { FormGroup } from 'xsolla-uikit';
 
 export function Notice() {
-  return (<CssNotice className="">
-    <FormGroup>
-      <CssNoticeText>
-        Drop items here
-      </CssNoticeText>
-    </FormGroup>
-  </CssNotice>
+  return (
+
+
+      <CssNotice className="">
+          <CssNoticeText>
+            Drop items here
+          </CssNoticeText>
+      </CssNotice>
+
 
     )
 }
 
 
 const CssNotice = styled.div`
-
+    position: relative;
+    width: 640px;
+    left: 80px;
     border: 1px solid #c5d0db;
 
 `;
@@ -31,3 +35,15 @@ const CssNoticeText = styled.div`
     /* color: #aaa; */
     padding: 24px;
 `;
+
+
+const CSSbg0 = styled.div`
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+`

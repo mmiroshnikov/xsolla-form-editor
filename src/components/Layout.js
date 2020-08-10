@@ -1,73 +1,81 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import uuid from 'uuid/v4';
-import styled from 'styled-components';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import React, { Component, Fragment } from 'react'
+import ReactDOM from 'react-dom'
+import uuid from 'uuid/v4'
+import styled from 'styled-components'
+import {
+  DragDropContext,
+  Droppable,
+  Draggable
+} from 'react-beautiful-dnd'
 // import console = require('console');
-import { Line } from './Line';
-import { Element } from './Element';
-import { ITEMS, Uikit } from '../data/elements';
-import { Button, FormGroup, ContentBlock } from 'xsolla-uikit';
-import { List, Container } from './Container';
-import { AddSection } from './AddSection';
-import { Notice } from './Notice';
-import { Palette } from './Palette';
+import { Line } from './Line'
+import { ITEMS, Uikit } from '../data/elements'
+import { Button, FormGroup, ContentBlock } from 'xsolla-uikit'
+import { List, Container } from './Container'
+import { AddSection } from './AddSection'
+import { Notice } from './Notice'
+import { Palette } from './Palette'
+import { Page } from './Elements/Page'
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
+  const result = Array.from(list)
+  const [removed] = result.splice(startIndex, 1)
+  result.splice(endIndex, 0, removed)
 
-    return result;
-};
+  return result
+}
 /**
  * Moves an item from one list to another list.
  */
-const copy = (source, destination, droppableSource, droppableDestination) => {
-    console.log('==> dest', destination);
+const copy = (
+  source,
+  destination,
+  droppableSource,
+  droppableDestination
+) => {
+  console.log('==> dest', destination)
 
-    const sourceClone = Array.from(source);
-    const destClone = Array.from(destination);
-    const item = sourceClone[droppableSource.index];
+  const sourceClone = Array.from(source)
+  const destClone = Array.from(destination)
+  const item = sourceClone[droppableSource.index]
 
-    destClone.splice(droppableDestination.index, 0, { ...item, id: uuid() });
-    return destClone;
-};
+  destClone.splice(droppableDestination.index, 0, {
+    ...item,
+    id: uuid()
+  })
+  return destClone
+}
 
-const move = (source, destination, droppableSource, droppableDestination) => {
-    const sourceClone = Array.from(source);
-    const destClone = Array.from(destination);
-    const [removed] = sourceClone.splice(droppableSource.index, 1);
+const move = (
+  source,
+  destination,
+  droppableSource,
+  droppableDestination
+) => {
+  const sourceClone = Array.from(source)
+  const destClone = Array.from(destination)
+  const [removed] = sourceClone.splice(droppableSource.index, 1)
 
-    destClone.splice(droppableDestination.index, 0, removed);
+  destClone.splice(droppableDestination.index, 0, removed)
 
-    const result = {};
-    result[droppableSource.droppableId] = sourceClone;
-    result[droppableDestination.droppableId] = destClone;
+  const result = {}
+  result[droppableSource.droppableId] = sourceClone
+  result[droppableDestination.droppableId] = destClone
 
-    return result;
-};
+  return result
+}
 
 const Content = styled.div`
-    /* margin: 80px 300px 80px 80px; */
-`;
-
-
+  width: 100%;
+  /* margin: 80px 300px 80px 80px; */
+`
 
 const Clone = styled(Line)`
-    + div {
-        display: none !important;
-    }
-`;
-
-
-
-
-
-
-
-
+  + div {
+    display: none !important;
+  }
+`
 
 // const Button = styled.button`
 //     display: flex;
@@ -85,178 +93,139 @@ const Clone = styled(Line)`
 // `;
 
 const ButtonText = styled.div`
-    margin: 0 1rem;
-`;
-
-
+  margin: 0 1rem;
+`
 
 export class Layout extends Component {
-    state = {
-        [uuid()]: []
-    };
-    onDragEnd = result => {
-        const { source, destination } = result;
+  state = {
+    [uuid()]: []
+  }
+  onDragEnd = result => {
+    const { source, destination } = result
 
-        console.log('==> result', result);
+    console.log('==> result', result)
 
-        // dropped outside the list
-        if (!destination) {
-            return;
-        }
-
-        switch (source.droppableId) {
-            case destination.droppableId:
-                this.setState({
-                    [destination.droppableId]: reorder(
-                        this.state[source.droppableId],
-                        source.index,
-                        destination.index
-                    )
-                });
-                break;
-            case 'ITEMS':
-                this.setState({
-                    [destination.droppableId]: copy(
-                        ITEMS,
-                        this.state[destination.droppableId],
-                        source,
-                        destination
-                    )
-                });
-                break;
-            default:
-                this.setState(
-                    move(
-                        this.state[source.droppableId],
-                        this.state[destination.droppableId],
-                        source,
-                        destination
-                    )
-                );
-                break;
-        }
-    };
-
-    addList = e => {
-        this.setState({ [uuid()]: [] });
-    };
-
-
-
-
-    // Normally you would want to split things out into separate components.
-    // But in this example everything is just done in one place for simplicity
-    render() {
-        return (
-          <DragDropContext onDragEnd={this.onDragEnd}>
-            <CssBody>
-
-
-                <Droppable droppableId="ITEMS" isDropDisabled={true}>
-                    {(provided, snapshot) => (
-                        <Palette
-                          // filter='analytics'
-                          provided={provided}
-                          snapshot={snapshot}
-                          innerRef={provided.innerRef}
-                          isDraggingOver={snapshot.isDraggingOver}>
-                        </Palette>
-                    )}
-                </Droppable>
-
-
-
-                <Content>
-
-                <AddSection handle={this.addList}/>
-
-
-
-
-                    {Object.keys(this.state).map((list, i) => {
-                        console.log('==> list', list);
-                        return (
-                          <FormGroup indentation='lg'>
-            <ContentBlock>
-
-                            <Droppable key={list} droppableId={list}>
-                                {(provided, snapshot) => (
-                                    <Container
-                                        innerRef={provided.innerRef}
-                                        isDraggingOver={
-                                            snapshot.isDraggingOver
-                                        }>
-
-                                          <FormGroup>
-                                        {this.state[list].length
-                                            ? this.state[list].map(
-                                                  (item, index) => (
-                                                      <Draggable
-                                                          key={item.id}
-                                                          draggableId={item.id}
-                                                          index={index}>
-                                                          {(
-                                                              provided,
-                                                              snapshot
-                                                          ) => (
-                                                              <Line
-                                                                  handle={provided.dragHandleProps}
-                                                                  innerRef={
-                                                                      provided.innerRef
-                                                                  }
-                                                                  {...provided.draggableProps}
-                                                                  isDragging={
-                                                                      snapshot.isDragging
-                                                                  }
-                                                                  style={
-                                                                      provided
-                                                                          .draggableProps
-                                                                          .style
-                                                                  }>
-
-                                                                  <Uikit component={item.componentId}/>
-                                                              </Line>
-                                                          )}
-                                                      </Draggable>
-                                                  )
-                                              )
-                                            : !provided.placeholder && (
-                                                  <Notice />
-
-                                              )}
-                                        {provided.placeholder}
-                                        </FormGroup>
-                                    </Container>
-
-                                )}
-                            </Droppable>
-                            </ContentBlock>
-                            </FormGroup>
-                        );
-                    })}
-
-                </Content>
-
-
-
-
-
-
-
-
-          </CssBody>
-            </DragDropContext>
-        );
+    // dropped outside the list
+    if (!destination) {
+      return
     }
+
+    switch (source.droppableId) {
+      case destination.droppableId:
+        this.setState({
+          [destination.droppableId]: reorder(
+            this.state[source.droppableId],
+            source.index,
+            destination.index
+          )
+        })
+        break
+      case 'ITEMS':
+        this.setState({
+          [destination.droppableId]: copy(
+            ITEMS,
+            this.state[destination.droppableId],
+            source,
+            destination
+          )
+        })
+        break
+      default:
+        this.setState(
+          move(
+            this.state[source.droppableId],
+            this.state[destination.droppableId],
+            source,
+            destination
+          )
+        )
+        break
+    }
+  }
+
+  addList = e => {
+    this.setState({ [uuid()]: [] })
+  }
+
+  // Normally you would want to split things out into separate components.
+  // But in this example everything is just done in one place for simplicity
+  render() {
+    return (
+      <DragDropContext onDragEnd={this.onDragEnd}>
+        <CssBody>
+          <Droppable droppableId="ITEMS" isDropDisabled={true}>
+            {(provided, snapshot) => (
+              <Palette
+                // filter='analytics'
+                provided={provided}
+                snapshot={snapshot}
+                innerRef={provided.innerRef}
+                isDraggingOver={snapshot.isDraggingOver}
+              ></Palette>
+            )}
+          </Droppable>
+
+          <Content>
+            <AddSection handle={this.addList} />
+
+            <Page type="popup" size="md">
+              {Object.keys(this.state).map((list, i) => {
+                console.log('==> list', list)
+                return (
+                  <Fragment>
+                    <Droppable key={list} droppableId={list}>
+                      {(provided, snapshot) => (
+                        <Container
+                          innerRef={provided.innerRef}
+                          isDraggingOver={snapshot.isDraggingOver}
+                        >
+                          {this.state[list].length
+                            ? this.state[list].map((item, index) => (
+                                <Draggable
+                                  key={item.id}
+                                  draggableId={item.id}
+                                  index={index}
+                                >
+                                  {(provided, snapshot) => (
+                                    <Line
+                                      handle={
+                                        provided.dragHandleProps
+                                      }
+                                      innerRef={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      isDragging={snapshot.isDragging}
+                                      style={
+                                        provided.draggableProps.style
+                                      }
+                                    >
+                                      <Uikit
+                                        component={item.componentId}
+                                      />
+                                    </Line>
+                                  )}
+                                </Draggable>
+                              ))
+                            : !provided.placeholder && <Notice />}
+                          {provided.placeholder}
+                        </Container>
+                      )}
+                    </Droppable>
+                  </Fragment>
+                )
+              })}
+            </Page>
+          </Content>
+        </CssBody>
+      </DragDropContext>
+    )
+  }
 }
 
-
-
 const CssBody = styled.div`
-padding: 80px;
-background: #f7faff;
-display: grid;
-grid-template-columns:  1fr 4fr;
-grid-column-gap: 64px;
-grid-row-gap: 64px;
+  padding: 80px;
+  background: #f7faff;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-column-gap: 64px;
+  grid-row-gap: 64px;
 `

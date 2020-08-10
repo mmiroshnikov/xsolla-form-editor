@@ -27,18 +27,18 @@ export const ITEMS = [
       content: 'Step tabs',
       componentId: 'step-tabs'
   },
-  {
-      type: 'analytics',
-      id: uuid(),
-      content: 'Pie',
-      // componentId: 'pie'
-  },
-  {
-      type: 'analytics',
-      id: uuid(),
-      content: 'Column',
-      // componentId: 'charts'
-  },
+  // {
+  //     type: 'analytics',
+  //     id: uuid(),
+  //     content: 'Pie',
+  //     // componentId: 'pie'
+  // },
+  // {
+  //     type: 'analytics',
+  //     id: uuid(),
+  //     content: 'Column',
+  //     // componentId: 'charts'
+  // },
   // {
   //     id: uuid(),
   //     content: 'Slideshow'
