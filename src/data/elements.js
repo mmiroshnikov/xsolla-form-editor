@@ -1,6 +1,6 @@
 import React, { Component, Fragment, useState } from 'react';
 import uuid from 'uuid/v4';
-import { Input } from 'xsolla-uikit';
+import { Input, FormGroup } from 'xsolla-uikit';
 
 import { InputExample } from '../components/Elements/InputExample';
 import { ExampleStepTabs } from '../components/Elements/StepTabsExample';
@@ -53,20 +53,6 @@ export const ITEMS = [
 ];
 
 
-export const NotificationEdit = ({state = 'A', setState}) => {
-  return (
-    <Fragment>
-      <select value={state} onChange={(e) => {
-        debugger
-        setState(e.target.value)
-      }}>
-        <option value="success">success</option>
-        <option value="error">error</option>
-        <option value="info">info</option>
-      </select>
-    </Fragment>
-  )
-}
 
 
 export const PaInput = () => {
@@ -88,23 +74,15 @@ export const Uikit = ({component = 'input', state}) => {
   return (
     <Fragment>
 
-      {component === 'input' &&
-      <div className="">
-          <InputExample/>
-          </div>
+      {component === 'input' && <InputExample/>}
+
+      {component === 'notification' && <NotificationExample state={state}/>
       }
 
-      {component === 'notification' &&
-         <NotificationExample status={state}/>
+      {component === 'step-tabs' && <ExampleStepTabs state={state}/>
       }
 
-      {component === 'step-tabs' &&
-         <ExampleStepTabs/>
-      }
-
-      {component === 'charts' &&
-         <PAcharts/>
-      }
+      {component === 'charts' && <PAcharts/>}
 
     </Fragment>
   )
@@ -114,11 +92,9 @@ export const Edits = ({component = 'input', state, setState}) => {
   return (
     <Fragment>
 
-      {component === 'input' &&
-
+      {/* {component === 'input' &&
           <NotificationEdit state={state} setState={setState}/>
-
-      }
+      } */}
 
 
       {component === 'notification' &&
@@ -126,13 +102,56 @@ export const Edits = ({component = 'input', state, setState}) => {
       }
 
       {component === 'step-tabs' &&
-         <NotificationEdit state={state} setState={setState}/>
+         <StepTabsEdit state={state} setState={setState}/>
       }
 
       {component === 'charts' &&
          <NotificationEdit state={state} setState={setState}/>
       }
 
+    </Fragment>
+  )
+}
+
+
+
+
+
+
+export const NotificationEdit = ({state = 'success', setState}) => {
+  return (
+    <Fragment>
+      <FormGroup label='Status'>
+        <select value={state} onChange={(e) => {
+          debugger
+          setState(e.target.value)
+        }}>
+          <option value="success">success</option>
+          <option value="error">error</option>
+          <option value="info">info</option>
+        </select>
+      </FormGroup>
+    </Fragment>
+  )
+}
+
+
+export const StepTabsEdit = ({state = 1, setState}) => {
+  return (
+    <Fragment>
+      <FormGroup label='Current step'>
+      <select value={state} onChange={(e) => {
+        debugger
+        setState(e.target.value)
+      }}>
+        <option value={1}>1</option>
+        <option value={2}>2</option>
+        <option value={3}>3</option>
+        <option value={4}>4</option>
+        <option value={5}>5</option>
+        <option value={6}>6</option>
+      </select>
+      </FormGroup>
     </Fragment>
   )
 }

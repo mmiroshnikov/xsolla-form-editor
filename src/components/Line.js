@@ -14,7 +14,6 @@ import { Edits, Uikit } from '../data/elements';
 
 export function Line(props) {
   const {item, children, handle, isDragging } = { ...props }
-  console.log('isDragging = ', isDragging);
 
   const [state, setState] = useState()
 

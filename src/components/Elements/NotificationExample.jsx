@@ -1,12 +1,12 @@
 import React, {PureComponent, Fragment} from 'react';
 import { FormGroup, Notification } from 'xsolla-uikit';
 
-export function NotificationExample({status = 'success'}) {
+export function NotificationExample({state = 'success'}) {
 
     return (
       <Fragment>
         <FormGroup>
-          <Notification title="Success" status={status} icon={true}>
+          <Notification title="Success" status={state} icon={true}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit et tempore quidem
             maiores? Doloribus, fugit!
           </Notification>
