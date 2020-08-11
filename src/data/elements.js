@@ -74,7 +74,7 @@ export const Uikit = ({component = 'input', state}) => {
   return (
     <Fragment>
 
-      {component === 'input' && <InputExample/>}
+      {component === 'input' && <InputExample state={state}/>}
 
       {component === 'notification' && <NotificationExample state={state}/>
       }
@@ -92,9 +92,9 @@ export const Edits = ({component = 'input', state, setState}) => {
   return (
     <Fragment>
 
-      {/* {component === 'input' &&
-          <NotificationEdit state={state} setState={setState}/>
-      } */}
+      {component === 'input' &&
+          <InputEdit state={state} setState={setState}/>
+      }
 
 
       {component === 'notification' &&
@@ -150,6 +150,23 @@ export const StepTabsEdit = ({state = 1, setState}) => {
         <option value={4}>4</option>
         <option value={5}>5</option>
         <option value={6}>6</option>
+      </select>
+      </FormGroup>
+    </Fragment>
+  )
+}
+
+export const InputEdit = ({state = 1, setState}) => {
+  return (
+    <Fragment>
+      <FormGroup label='Input size'>
+      <select value={state} onChange={(e) => {
+        debugger
+        setState(e.target.value)
+      }}>
+        <option value={'sm'}>Small</option>
+        <option value={'md'}>Medium</option>
+        <option value={'lg'}>Large</option>
       </select>
       </FormGroup>
     </Fragment>

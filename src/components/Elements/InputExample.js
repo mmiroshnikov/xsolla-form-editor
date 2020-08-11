@@ -1,34 +1,31 @@
-import React, {PureComponent, Fragment} from 'react';
+import React, {PureComponent, Fragment, useState} from 'react';
 // import FormGroup from '../form-group';
 import { Input, FormGroup } from 'xsolla-uikit';
 
 // import InputPassword from '../input-password';
 // import Icon from '../icon';
 
-type State = {
-  value: string
-};
 
-export class InputExample extends PureComponent<null, State> {
-  state = {
-    value: ''
-  };
 
-  setValue = (e: SyntheticInputEvent<HTMLInputElement>) => this.setState({value: e.target.value});
+export function InputExample({state = 'sm'}) {
 
-  render() {
+  const [val, setVal] = useState()
+
+  const setValue = (e: SyntheticInputEvent<HTMLInputElement>) => setVal(e.target.value);
+
+
     return (
       <Fragment>
-  <div style={{maxWidth: 400, margin: '0'}}>
+      <div style={{maxWidth: 400, margin: '0'}}>
         <FormGroup
           label="Standard input"
           caption="Default appearance and behavior. Used in most cases.">
           <Input
-            size='sm'
-            input={{name: 'default', value: this.state.value,
-            onChange: this.setValue}} />
+            size={state}
+            input={{name: 'default', value: val,
+            onChange: setValue}} />
         </FormGroup>
-</div>
+      </div>
 
       </Fragment>
       // <div style={{maxWidth: 480, margin: '0 auto'}}>
@@ -129,7 +126,7 @@ export class InputExample extends PureComponent<null, State> {
     //     </FormGroup>
     //   </div>
     )
-  }
+
 }
 
 export default InputExample;
