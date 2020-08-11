@@ -5,7 +5,7 @@ import { Button, Icon, FormGroup } from 'xsolla-uikit';
 
 export function AddSection({handle}) {
   return (
-    <FormGroup border='lg'>
+    // <FormGroup border='lg'>
     <Button onClick={handle}
     appearance='secondary'
     size='sm'
@@ -13,6 +13,6 @@ export function AddSection({handle}) {
       <Icon name='circle-plus'/>
       Add Section
   </Button>
-  </FormGroup>
+  // </FormGroup>
   )
 }

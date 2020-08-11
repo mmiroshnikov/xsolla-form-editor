@@ -160,20 +160,25 @@ export class Layout extends Component {
 
         <DragDropContext onDragEnd={this.onDragEnd}>
         <CssBody>
-          <Droppable droppableId="ITEMS" isDropDisabled={true}>
-            {(provided, snapshot) => (
-              <Palette
-                // filter='analytics'
-                provided={provided}
-                snapshot={snapshot}
-                innerRef={provided.innerRef}
-                isDraggingOver={snapshot.isDraggingOver}
-              ></Palette>
-            )}
-          </Droppable>
+          <FormGroup>
+            <FormGroup border='lg'>
+              <Droppable droppableId="ITEMS" isDropDisabled={true}>
+                {(provided, snapshot) => (
+                  <Palette
+                    // filter='analytics'
+                    provided={provided}
+                    snapshot={snapshot}
+                    innerRef={provided.innerRef}
+                    isDraggingOver={snapshot.isDraggingOver}
+                  ></Palette>
+                )}
+              </Droppable>
+            </FormGroup>
+            <AddSection handle={this.addList} />
+          </FormGroup>
+
 
           <Content>
-            <AddSection handle={this.addList} />
 
 
 
