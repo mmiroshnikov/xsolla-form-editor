@@ -59,8 +59,11 @@ const Kiosk = styled(List)`
   /* right: 0; */
   /* bottom: 0; */
   width: 200px;
+  position: sticky;
+  top: 20px;
 `
 
 const CssPalette = styled.div`
   /* padding: 80px 0; */
+  position: relative;
 `

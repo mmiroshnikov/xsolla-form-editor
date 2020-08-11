@@ -234,7 +234,7 @@ export class Layout extends Component {
 }
 
 const CssBody = styled.div`
-  padding: 80px;
+  padding: 40px;
   background: #f7faff;
   display: grid;
   grid-template-columns: 1fr 4fr;
