@@ -16,6 +16,7 @@ import { AddSection } from './AddSection'
 import { Notice } from './Notice'
 import { Palette } from './Palette'
 import { Page } from './Elements/Page'
+import { initial } from '../data/initial';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -97,9 +98,12 @@ const ButtonText = styled.div`
 `
 
 export class Layout extends Component {
-  state = {
-    [uuid()]: []
-  }
+  // state = {
+  //   [uuid()]: []
+  // }
+  state = [
+    [...initial]
+  ]
   onDragEnd = result => {
     const { source, destination } = result
 
@@ -141,6 +145,7 @@ export class Layout extends Component {
         )
         break
     }
+    console.log('state = ', this.state);
   }
 
   addList = e => {
@@ -168,7 +173,8 @@ export class Layout extends Component {
           <Content>
             <AddSection handle={this.addList} />
 
-            <Page type="popup" size="md">
+
+
               {Object.keys(this.state).map((list, i) => {
                 console.log('==> list', list)
                 return (
@@ -179,7 +185,8 @@ export class Layout extends Component {
                           innerRef={provided.innerRef}
                           isDraggingOver={snapshot.isDraggingOver}
                         >
-                          {this.state[list].length
+                          <Page type="popup" size="md">
+                            {this.state[list].length
                             ? this.state[list].map((item, index) => (
                                 <Draggable
                                   key={item.id}
@@ -188,12 +195,14 @@ export class Layout extends Component {
                                 >
                                   {(provided, snapshot) => (
                                     <Line
+                                      snapshot={snapshot}
                                       handle={
                                         provided.dragHandleProps
                                       }
                                       innerRef={provided.innerRef}
                                       {...provided.draggableProps}
                                       isDragging={snapshot.isDragging}
+
                                       style={
                                         provided.draggableProps.style
                                       }
@@ -206,14 +215,15 @@ export class Layout extends Component {
                                 </Draggable>
                               ))
                             : !provided.placeholder && <Notice />}
-                          {provided.placeholder}
+                              {provided.placeholder}
+                            </Page>
                         </Container>
                       )}
                     </Droppable>
                   </Fragment>
                 )
               })}
-            </Page>
+
           </Content>
         </CssBody>
       </DragDropContext>

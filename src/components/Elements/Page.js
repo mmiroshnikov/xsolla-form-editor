@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import styled, {css} from 'styled-components';
+import { FormGroup } from 'xsolla-uikit';
 
 export function Page({
   type='popup',
@@ -8,7 +9,7 @@ export function Page({
   children,
 }) {
   return (
-    <Fragment>
+    <FormGroup indentation='lg'>
       <CSSbg0>
 
         <CSScont>
@@ -17,7 +18,7 @@ export function Page({
 
         <CSSbg/>
       </CSSbg0>
-    </Fragment>
+    </FormGroup>
   )
 }
 

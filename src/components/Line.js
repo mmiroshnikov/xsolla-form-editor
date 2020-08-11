@@ -7,11 +7,14 @@ import React, {
 import { Link } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
-import { ContentBlock, FormGroup } from 'xsolla-uikit'
+import { ContentBlock, FormGroup, Button, Icon } from 'xsolla-uikit';
+
 
 export function Line(props) {
-  debugger
-  const { children, handle } = { ...props }
+  const { children, handle, isDragging } = { ...props }
+  console.log('isDragging = ', isDragging);
+
+  // debugger
   return (
     <CssItem {...props}>
       <CssLeft>
@@ -25,17 +28,49 @@ export function Line(props) {
         </Handle>
       </CssLeft>
 
-      <CssRight>Hints</CssRight>
+      <CssRight>
+        {/* {isDragging && 'isDragging'} */}
+        <Button appearance='square' icon='settings'/>
+      </CssRight>
 
       <FormGroup>
-        <CSSformGroup>{children}</CSSformGroup>
+
+        <CSSformGroup>
+          <CSShovered isDragging={isDragging}/>
+          {/* {isDragging && <CSShovered isDragging={isDragging}/>} */}
+          {children}
+
+        </CSSformGroup>
       </FormGroup>
     </CssItem>
   )
 }
 
+
+const CSShovered = styled.div `
+  border: 1px ${({isDragging}) => (isDragging ? 'dashed #4099ff' : 'none #ddd')};
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: -40px;
+  right: auto;
+  width: 640px;
+  z-index: 2;
+  /* border: 1px dashed #4099ff; */
+`
+
+const CSShover = styled.div`
+  position: absolute;
+  top: -20px;
+  bottom: -20px;
+  left: auto;
+  right: auto;
+  z-index: 2;
+`
+
 const CSSformGroup = styled.div`
   padding: 16px 0;
+  position: relative;
 `
 
 const CSSbg = styled.div`
@@ -62,24 +97,29 @@ const CSSbg0 = styled.div`
 const CssLeft = styled.div`
   position: absolute;
   margin-left: -120px;
+  height: 100%;
+  display: flex;
+  align-items: center;
 `
 const CssRight = styled.div`
   /* background: #fafbfc; */
   padding: 8px 0 0 16px;
   position: absolute;
-  left: calc(100% - 80px);
-  right: 0;
+  left: 760px;
+  /* left: calc(100% - px); */
+  /* right: 0; */
+  width: 200px;
+  /* border: 1px dashed #4099ff; */
 `
 
 const CssItem = styled.div`
-  display: relative;
+  position: relative;
   padding: 0 120px;
   /* display: grid; */
   /* grid-template-columns: 80px 1fr 200px; */
   /* grid-column-gap: 24px; */
 
-  border: 1px
-    ${props => (props.isDragging ? 'dashed #4099ff' : 'none #ddd')};
+
 `
 
 export const Handle = styled.div`

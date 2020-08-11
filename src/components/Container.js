@@ -39,5 +39,7 @@ export const CSScontainer = styled(List)`
     } */
     /* margin: 16px; */
     width: 100%;
+    padding:0;
     /* border: 1px ${props => (props.isDraggingOver ? 'dashed #000' : 'none #ddd')}; */
+    background: 1px ${props => (props.isDraggingOver ? '#ecebff' : 'transparent')};
 `;
