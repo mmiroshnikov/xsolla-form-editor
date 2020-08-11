@@ -102,9 +102,9 @@ export class Layout extends Component {
   // state = {
   //   [uuid()]: []
   // }
-  state = [
-    initial
-  ]
+  state = [[
+    ...initial
+  ]]
   onDragEnd = result => {
     const { source, destination } = result
 

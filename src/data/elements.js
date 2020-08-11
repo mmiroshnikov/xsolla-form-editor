@@ -1,11 +1,12 @@
 import React, { Component, Fragment, useState } from 'react';
 import uuid from 'uuid/v4';
-import { Input, FormGroup } from 'xsolla-uikit';
+import { Input, FormGroup, Button } from 'xsolla-uikit';
 
 import { InputExample } from '../components/Elements/InputExample';
 import { ExampleStepTabs } from '../components/Elements/StepTabsExample';
 import { PAcharts } from '../components/Elements/Charts';
 import NotificationExample  from '../components/Elements/NotificationExample';
+import styled, {css} from 'styled-components';
 
 export const ITEMS = [
   {
@@ -14,21 +15,21 @@ export const ITEMS = [
       content: 'Input',
       // component: <PaInput/>
       componentId: 'input',
-      edit: <NotificationEdit/>
+      edit: ()=> <NotificationEdit/>
   },
   {
       type: 'pa',
       id: uuid(),
       content: 'Notification',
       componentId: 'notification',
-      edit: <NotificationEdit/>
+      edit: ()=><NotificationEdit/>
   },
   {
       type: 'pa',
       id: uuid(),
       content: 'Step tabs',
       componentId: 'step-tabs',
-      edit: <NotificationEdit/>
+      edit: ()=><NotificationEdit/>
   },
   // {
   //     type: 'analytics',
@@ -90,31 +91,50 @@ export const Uikit = ({component = 'input', state}) => {
 
 export const Edits = ({component = 'input', state, setState}) => {
   return (
-    <Fragment>
-
-      {component === 'input' &&
-          <InputEdit state={state} setState={setState}/>
-      }
 
 
-      {component === 'notification' &&
-         <NotificationEdit state={state} setState={setState}/>
-      }
+    <CSSright0 className='m-css-right'>
+      <CSSright>
+        {component === 'input' &&
+            <InputEdit state={state} setState={setState}/>
+        }
 
-      {component === 'step-tabs' &&
-         <StepTabsEdit state={state} setState={setState}/>
-      }
 
-      {component === 'charts' &&
-         <NotificationEdit state={state} setState={setState}/>
-      }
+        {component === 'notification' &&
+          <NotificationEdit state={state} setState={setState}/>
+        }
 
-    </Fragment>
+        {component === 'step-tabs' &&
+          <StepTabsEdit state={state} setState={setState}/>
+        }
+
+        {component === 'charts' &&
+          <NotificationEdit state={state} setState={setState}/>
+        }
+
+        <Button appearance='flatten'>Delete</Button>
+
+      </CSSright>
+    </CSSright0>
+
+
   )
 }
 
 
-
+const CSSright0 = styled.div`
+  color: ${({theme}) => theme['colorAccent']};
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  z-index:0;
+`
+const CSSright = styled.div`
+  border: 1px solid #c5d0db;
+  border-radius: 8px;
+  padding: 16px;
+  background: #f7faff;
+`
 
 
 
@@ -136,13 +156,24 @@ export const NotificationEdit = ({state = 'success', setState}) => {
 }
 
 
-export const StepTabsEdit = ({state = 1, setState}) => {
+export const StepTabsEdit = ({state = {current: 1, total: 4}, setState}) => {
   return (
     <Fragment>
       <FormGroup label='Current step'>
-      <select value={state} onChange={(e) => {
-        debugger
-        setState(e.target.value)
+      <select value={state['current']} onChange={(e) => {
+        setState({...state, current: parseInt(e.target.value)})
+      }}>
+        <option value={1}>1</option>
+        <option value={2}>2</option>
+        <option value={3}>3</option>
+        <option value={4}>4</option>
+        <option value={5}>5</option>
+        <option value={6}>6</option>
+      </select>
+      </FormGroup>
+      <FormGroup label='Total steps'>
+      <select value={state['total']} onChange={(e) => {
+        setState({...state, total: parseInt(e.target.value)})
       }}>
         <option value={1}>1</option>
         <option value={2}>2</option>

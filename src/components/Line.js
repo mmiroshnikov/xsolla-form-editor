@@ -17,11 +17,10 @@ export function Line(props) {
 
   const [state, setState] = useState()
 
-  debugger
   return (
     <CssItem {...props}>
 
-      <CssLeft>
+      <CssLeft className='m-css-left'>
         <Handle {...handle}>
           <svg width="24" height="24" viewBox="0 0 24 24">
             <path
@@ -33,7 +32,7 @@ export function Line(props) {
       </CssLeft>
 
       <CssRight>
-          <Edits
+        <Edits
           component={item.componentId}
           state={state}
           setState={setState}/>
@@ -127,11 +126,12 @@ const CssRight = styled.div`
   /* background: #fafbfc; */
   padding: 8px 0 0 16px;
   position: absolute;
-  left: 760px;
+  left: 720px;
   z-index: 2;
   /* left: calc(100% - px); */
   /* right: 0; */
   width: 200px;
+  /* height: 100%; */
   /* border: 1px dashed #4099ff; */
 `
 
@@ -141,8 +141,33 @@ const CssItem = styled.div`
   /* display: grid; */
   /* grid-template-columns: 80px 1fr 200px; */
   /* grid-column-gap: 24px; */
-
-
+  & .m-css-left {
+    /* display: none; */
+    opacity: 0;
+    transform: translateX(40px);
+    transition: all 50ms ease-in-out;
+  }
+  &:hover .m-css-left {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+  & .m-css-right {
+    /* display: none; */
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: all 50ms ease-in-out;
+  }
+  &:hover .m-css-right {
+    transform: translateX(0px);
+    display: auto;
+    overflow: visible;
+    z-index: 3;
+    height: auto;
+    opacity: 1;
+  }
+  &:hover {
+    z-index: 3;
+  }
 `
 
 export const Handle = styled.div`
