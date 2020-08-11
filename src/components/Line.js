@@ -7,16 +7,21 @@ import React, {
 import { Link } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
-import { ContentBlock, FormGroup, Button, Icon } from 'xsolla-uikit';
+import { ContentBlock, FormGroup, Button, Icon, Dropdown, ButtonArrow, Select } from 'xsolla-uikit';
+import { Edits, Uikit } from '../data/elements';
+
 
 
 export function Line(props) {
-  const { children, handle, isDragging } = { ...props }
+  const {item, children, handle, isDragging } = { ...props }
   console.log('isDragging = ', isDragging);
 
-  // debugger
+  const [state, setState] = useState()
+
+  debugger
   return (
     <CssItem {...props}>
+
       <CssLeft>
         <Handle {...handle}>
           <svg width="24" height="24" viewBox="0 0 24 24">
@@ -29,19 +34,37 @@ export function Line(props) {
       </CssLeft>
 
       <CssRight>
+          <Edits
+          component={item.componentId}
+          state={state}
+          setState={setState}/>
         {/* {isDragging && 'isDragging'} */}
-        <Button appearance='square' icon='settings'/>
+        {/* <Button appearance='square' icon='settings'/> */}
+
+          {/* <Select
+            options={[
+              {label: 'Edit item', description: 'Just then her head struck', value: 'edit'},
+              {label: 'Delete item', color: 'red', value: 'delete'}
+            ]}
+          /> */}
+
+
+
       </CssRight>
 
-      <FormGroup>
 
-        <CSSformGroup>
-          <CSShovered isDragging={isDragging}/>
-          {/* {isDragging && <CSShovered isDragging={isDragging}/>} */}
-          {children}
 
-        </CSSformGroup>
-      </FormGroup>
+      <CSSformGroup>
+        {/* <CSShovered isDragging={isDragging}/> */}
+        {isDragging && <CSShovered isDragging={isDragging}/>}
+        <Uikit
+          component={item.componentId}
+          state={state}
+          setState={setState}
+
+        />
+      </CSSformGroup>
+
     </CssItem>
   )
 }
@@ -106,6 +129,7 @@ const CssRight = styled.div`
   padding: 8px 0 0 16px;
   position: absolute;
   left: 760px;
+  z-index: 2;
   /* left: calc(100% - px); */
   /* right: 0; */
   width: 200px;

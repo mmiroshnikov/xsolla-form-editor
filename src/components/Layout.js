@@ -17,6 +17,7 @@ import { Notice } from './Notice'
 import { Palette } from './Palette'
 import { Page } from './Elements/Page'
 import { initial } from '../data/initial';
+import { IntlProvider } from 'react-intl'
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -102,7 +103,7 @@ export class Layout extends Component {
   //   [uuid()]: []
   // }
   state = [
-    [...initial]
+    initial
   ]
   onDragEnd = result => {
     const { source, destination } = result
@@ -156,7 +157,8 @@ export class Layout extends Component {
   // But in this example everything is just done in one place for simplicity
   render() {
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
+
+        <DragDropContext onDragEnd={this.onDragEnd}>
         <CssBody>
           <Droppable droppableId="ITEMS" isDropDisabled={true}>
             {(provided, snapshot) => (
@@ -178,7 +180,7 @@ export class Layout extends Component {
               {Object.keys(this.state).map((list, i) => {
                 console.log('==> list', list)
                 return (
-                  <Fragment>
+
                     <Droppable key={list} droppableId={list}>
                       {(provided, snapshot) => (
                         <Container
@@ -195,6 +197,7 @@ export class Layout extends Component {
                                 >
                                   {(provided, snapshot) => (
                                     <Line
+                                      item={item}
                                       snapshot={snapshot}
                                       handle={
                                         provided.dragHandleProps
@@ -207,9 +210,7 @@ export class Layout extends Component {
                                         provided.draggableProps.style
                                       }
                                     >
-                                      <Uikit
-                                        component={item.componentId}
-                                      />
+
                                     </Line>
                                   )}
                                 </Draggable>
@@ -220,13 +221,14 @@ export class Layout extends Component {
                         </Container>
                       )}
                     </Droppable>
-                  </Fragment>
+
                 )
               })}
 
           </Content>
         </CssBody>
       </DragDropContext>
+
     )
   }
 }

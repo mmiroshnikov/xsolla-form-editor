@@ -13,6 +13,8 @@ import {
 } from "react-router-dom";
 // import { Layout } from './Layout';
 
+
+
 function App() {
 
   const [route, setRoute] = useState('/')
@@ -20,7 +22,9 @@ function App() {
 
 
   return (
-    <div className="App">
+
+
+<div className="App">
 
 
       <Router>
@@ -39,6 +43,7 @@ function App() {
 
 
     </div>
+
   );
 }
 

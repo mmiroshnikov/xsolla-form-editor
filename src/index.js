@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { SimpleDragDemo } from './components/SimpleDragDemo';
 import { Layout } from './components/Layout';
 import './editor.css';
-
+import { IntlProvider } from 'react-intl';
 
 class App extends React.Component {
 
@@ -19,4 +19,4 @@ class App extends React.Component {
 }
 
 const rootElement = document.getElementById('root')
-ReactDOM.render(<App />, rootElement)
+ReactDOM.render(<IntlProvider locale='en'><App /></IntlProvider>, rootElement)

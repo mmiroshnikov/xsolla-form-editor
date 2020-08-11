@@ -10,7 +10,7 @@ export function AddSection({handle}) {
     appearance='secondary'
     size='sm'
   >
-      <Icon namre='circle-plus'/>
+      <Icon name='circle-plus'/>
       Add Section
   </Button>
   </FormGroup>

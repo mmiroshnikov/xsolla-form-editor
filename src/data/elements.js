@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, useState } from 'react';
 import uuid from 'uuid/v4';
 import { Input } from 'xsolla-uikit';
 
@@ -13,19 +13,22 @@ export const ITEMS = [
       id: uuid(),
       content: 'Input',
       // component: <PaInput/>
-      componentId: 'input'
+      componentId: 'input',
+      edit: <NotificationEdit/>
   },
   {
       type: 'pa',
       id: uuid(),
       content: 'Notification',
       componentId: 'notification',
+      edit: <NotificationEdit/>
   },
   {
       type: 'pa',
       id: uuid(),
       content: 'Step tabs',
-      componentId: 'step-tabs'
+      componentId: 'step-tabs',
+      edit: <NotificationEdit/>
   },
   // {
   //     type: 'analytics',
@@ -50,6 +53,22 @@ export const ITEMS = [
 ];
 
 
+export const NotificationEdit = ({state = 'A', setState}) => {
+  return (
+    <Fragment>
+      <select value={state} onChange={(e) => {
+        debugger
+        setState(e.target.value)
+      }}>
+        <option value="success">success</option>
+        <option value="error">error</option>
+        <option value="info">info</option>
+      </select>
+    </Fragment>
+  )
+}
+
+
 export const PaInput = () => {
   return (
     <Fragment>
@@ -65,7 +84,7 @@ export const PaInput = () => {
 }
 
 
-export const Uikit = ({component = 'input'}) => {
+export const Uikit = ({component = 'input', state}) => {
   return (
     <Fragment>
 
@@ -75,9 +94,8 @@ export const Uikit = ({component = 'input'}) => {
           </div>
       }
 
-
       {component === 'notification' &&
-         <NotificationExample/>
+         <NotificationExample status={state}/>
       }
 
       {component === 'step-tabs' &&
@@ -86,6 +104,33 @@ export const Uikit = ({component = 'input'}) => {
 
       {component === 'charts' &&
          <PAcharts/>
+      }
+
+    </Fragment>
+  )
+}
+
+export const Edits = ({component = 'input', state, setState}) => {
+  return (
+    <Fragment>
+
+      {component === 'input' &&
+
+          <NotificationEdit state={state} setState={setState}/>
+
+      }
+
+
+      {component === 'notification' &&
+         <NotificationEdit state={state} setState={setState}/>
+      }
+
+      {component === 'step-tabs' &&
+         <NotificationEdit state={state} setState={setState}/>
+      }
+
+      {component === 'charts' &&
+         <NotificationEdit state={state} setState={setState}/>
       }
 
     </Fragment>
