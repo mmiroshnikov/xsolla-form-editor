@@ -22,7 +22,7 @@ const CssNotice = styled.div`
     position: relative;
     width: 640px;
     left: 80px;
-    border: 1px solid #c5d0db;
+    /* border: 1px solid #c5d0db; */
 
 `;
 
@@ -34,6 +34,8 @@ const CssNoticeText = styled.div`
     /* border: 1px solid transparent; */
     /* color: #aaa; */
     padding: 24px;
+    font-size: 14px;
+    text-transform: uppercase;
 `;
 
 
