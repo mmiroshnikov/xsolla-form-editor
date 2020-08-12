@@ -169,6 +169,7 @@ const CssItem = styled.div`
   }
   &:hover {
     z-index: 3;
+    background: #84aaff17;
   }
 `
 

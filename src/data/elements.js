@@ -166,6 +166,25 @@ export const NotificationEdit = ({state = 'success', setState}) => {
 export const StepTabsEdit = ({state = {current: 1, total: 4}, setState}) => {
   return (
     <Fragment>
+
+      <FormGroup indentation='sm'>
+        <div style={{display: 'flex'}}>
+          <div className="xsui-form-group__label" style={{paddingRight:8}}>
+            Steps number
+          </div>
+          <select value={state['total']} onChange={(e) => {
+            setState({...state, total: parseInt(e.target.value)})
+          }}>
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+            <option value={4}>4</option>
+            <option value={5}>5</option>
+          </select>
+        </div>
+      </FormGroup>
+
+
       <FormGroup indentation='sm'>
         <div style={{display: 'flex'}}>
           <div className="xsui-form-group__label" style={{paddingRight:8}}>
@@ -184,22 +203,7 @@ export const StepTabsEdit = ({state = {current: 1, total: 4}, setState}) => {
         </div>
       </FormGroup>
 
-      <FormGroup indentation='sm'>
-        <div style={{display: 'flex'}}>
-          <div className="xsui-form-group__label" style={{paddingRight:8}}>
-            Current step
-          </div>
-          <select value={state['total']} onChange={(e) => {
-            setState({...state, total: parseInt(e.target.value)})
-          }}>
-            <option value={1}>1</option>
-            <option value={2}>2</option>
-            <option value={3}>3</option>
-            <option value={4}>4</option>
-            <option value={5}>5</option>
-          </select>
-        </div>
-      </FormGroup>
+
 
 
 
