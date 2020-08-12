@@ -71,16 +71,16 @@ export const PaInput = () => {
 }
 
 
-export const Uikit = ({component = 'input', state}) => {
+export const Uikit = ({component = 'input', state, setState}) => {
   return (
     <Fragment>
 
-      {component === 'input' && <InputExample state={state}/>}
+      {component === 'input' && <InputExample state={state} setState={setState}/>}
 
-      {component === 'notification' && <NotificationExample state={state}/>
+      {component === 'notification' && <NotificationExample state={state} setState={setState}/>
       }
 
-      {component === 'step-tabs' && <ExampleStepTabs state={state}/>
+      {component === 'step-tabs' && <ExampleStepTabs state={state} setState={setState}/>
       }
 
       {component === 'charts' && <PAcharts/>}
@@ -207,7 +207,12 @@ export const StepTabsEdit = ({state = {current: 1, total: 4}, setState}) => {
   )
 }
 
-export const InputEdit = ({state = {tooltip: false, size: 'md'}, setState}) => {
+export const InputEdit = ({state = {
+  label: 'Label text',
+  tooltip: 'Tooltip text',
+  caption: 'Caption text',
+  size: 'sm',
+}, setState}) => {
   return (
     <Fragment>
       <FormGroup label='Input size'>
@@ -219,15 +224,53 @@ export const InputEdit = ({state = {tooltip: false, size: 'md'}, setState}) => {
       </select>
       </FormGroup>
 
-      <Checkbox
-              name="checkbox"
-              label="Tooltip"
-              input={{
-                value: state['tooltip'],
-                onChange: ()=> setState({...state, tooltip: !state['tooltip']}),
-              }}
-            />
+      <FormGroup size='xs'>
 
+
+<FormGroup label='Label'>
+          <input
+            value={state['label']}
+            onChange={(e)=> setState({...state, label: e.target.value})}
+          />
+</FormGroup>
+<FormGroup label='Value'>
+          <input
+            value={state['value']}
+            onChange={(e)=> setState({...state, value: e.target.value})}
+          />
+</FormGroup>
+<FormGroup label='Tooltip'>
+          <input
+            value={state['tooltip']}
+            onChange={(e)=> setState({...state, tooltip: e.target.value})}
+          />
+</FormGroup>
+<FormGroup label='Caption'>
+          <input
+            value={state['caption']}
+            onChange={(e)=> setState({...state, caption: e.target.value})}
+          />
+</FormGroup>
+        {/* <div style={{display: 'flex'}}>
+            <Checkbox
+                    name="checkbox_label"
+                    label="Label"
+                    input={{
+                      value: state['label'],
+                      onChange: ()=> setState({...state, label: !state['label']}),
+                    }}
+                  />
+
+            <Checkbox
+                    name="checkbox_tooltip"
+                    label="Tooltip"
+                    input={{
+                      value: state['tooltip'],
+                      onChange: ()=> setState({...state, tooltip: !state['tooltip']}),
+                    }}
+                  />
+            </div> */}
+      </FormGroup>
 
     </Fragment>
   )

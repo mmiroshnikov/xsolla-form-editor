@@ -185,7 +185,7 @@ export class Layout extends Component {
               {Object.keys(this.state).map((list, i) => {
                 console.log('==> list', list)
                 return (
-
+                  <CSSdroppable>
                     <Droppable key={list} droppableId={list}>
                       {(provided, snapshot) => (
                         <Container
@@ -226,7 +226,7 @@ export class Layout extends Component {
                         </Container>
                       )}
                     </Droppable>
-
+                  </CSSdroppable>
                 )
               })}
 
@@ -237,6 +237,14 @@ export class Layout extends Component {
     )
   }
 }
+
+
+const CSSdroppable = styled.div`
+  &:hover {
+    position: relative;
+    z-index: 2;
+  }
+`
 
 const CssBody = styled.div`
   padding: 40px;

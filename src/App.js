@@ -12,6 +12,8 @@ import {
   Route,
 } from "react-router-dom";
 // import { Layout } from './Layout';
+import { ContextProvider } from './context';
+
 
 
 
@@ -25,7 +27,7 @@ function App() {
 
 
 <div className="App">
-
+<ContextProvider>
 
       <Router>
 
@@ -42,6 +44,7 @@ function App() {
       </Router>
 
 
+    </ContextProvider>
     </div>
 
   );

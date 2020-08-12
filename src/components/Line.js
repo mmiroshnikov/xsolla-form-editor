@@ -33,6 +33,7 @@ export function Line(props) {
 
       <CssRight>
         <Edits
+          {...item}
           component={item.componentId}
           state={state}
           setState={setState}/>
@@ -56,6 +57,7 @@ export function Line(props) {
         {/* <CSShovered isDragging={isDragging}/> */}
         {isDragging && <CSShovered isDragging={isDragging}/>}
         <Uikit
+          {...item}
           component={item.componentId}
           state={state}
           setState={setState}

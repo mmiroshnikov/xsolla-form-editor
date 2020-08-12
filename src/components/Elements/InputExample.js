@@ -7,24 +7,34 @@ import { Input, FormGroup, Tooltip } from 'xsolla-uikit';
 
 
 
-export function InputExample({state = {tooltip: false, size: 'md'}}) {
+export function InputExample({state = {
+  label: 'Label text',
+  tooltip: 'Tooltip text',
+  caption: 'Caption text',
+  size: 'sm',
+}, setState}) {
 
   const [val, setVal] = useState()
 
-  const setValue = (e: SyntheticInputEvent<HTMLInputElement>) => setVal(e.target.value);
+  // const setValue = (e: SyntheticInputEvent<HTMLInputElement>) => setVal(e.target.value);
+  const setValue = (e: SyntheticInputEvent<HTMLInputElement>) => setState({...state, value: e.target.value});
 
 
     return (
       <Fragment>
       <div style={{maxWidth: 400, margin: '0'}}>
         <FormGroup
-          label="Standard input"
-          tooltip={state['tooltip'] ? 'Tooltip text' : null}
-          // caption="Default appearance and behavior. Used in most cases."
+          label={state['label']}
+          // tooltip={state['tooltip'] ? tooltip : null}
+          tooltip={state['tooltip']}
+          caption={state['caption']}
           >
           <Input
             size={state['size']}
-            input={{name: 'default', value: val,
+            input={{
+              name: 'default',
+              value: state['value'],
+              // value: val,
             onChange: setValue}} />
         </FormGroup>
       </div>
