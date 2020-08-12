@@ -7,8 +7,9 @@ const stepsDefault: any = [
   {label: 'Conditions'},
   {label: 'Schedule'},
   {label: 'Preview'},
-  {label: 'Some more info', disabled:  true},
-  {label: 'Finish', disabled: true}
+  {label: 'Some more info'},
+  {label: 'Finish'},
+  // {label: 'Some more info', disabled:  true},
 ]
 
 
@@ -18,7 +19,7 @@ export function ExampleStepTabs({state = {current: 1, total: 4}}) {
 
   const limitTabs = (limit) => {
     return stepsDefault.map((step, index) => {
-      if (index < limit) {
+      if (index <= limit -1) {
         debugger
         return ({
           ...step,
@@ -42,7 +43,7 @@ export function ExampleStepTabs({state = {current: 1, total: 4}}) {
     debugger
     if (current !== state['current']) setCurrent(parseInt(state['current']))
     if (total !== state['total']) {
-      setCurrent(parseInt(state['total']))
+      setCurrent(parseInt(state['current']))
       setSteps(limitTabs(state['total']))
 
     }
@@ -56,7 +57,7 @@ export function ExampleStepTabs({state = {current: 1, total: 4}}) {
 
   return (
     <Fragment>
-      <FormGroup style={{maxWidth: 600}}>
+      <FormGroup style={{maxWidth: 580}}>
         <StepTabs
           current={current}
           // steps={() => {

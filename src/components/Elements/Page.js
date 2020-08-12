@@ -25,7 +25,7 @@ export function Page({
 
 
 const CSSbg0 = styled.div`
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
   top: 0;
   bottom: 0;

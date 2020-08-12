@@ -14,7 +14,9 @@ export const PaChartCard = (props) => {
 {/* <CssChartNew> */}
 
     <ContentBlock appearance={flatten ? 'flatten' : 'primary'}>
-      <div style={{ width: "100%", overflow: "hidden" }}>
+      <div style={{ width: "100%",
+      overflow: "hidden"
+      }}>
         <FormGroup indentation="sm">
 
           <FormGroup style={{ position: 'sticky', top: 0 }} extra={<Button appearance="secondary">+ Add new item</Button>}>

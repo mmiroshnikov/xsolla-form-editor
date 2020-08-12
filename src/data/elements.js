@@ -1,6 +1,6 @@
 import React, { Component, Fragment, useState } from 'react';
 import uuid from 'uuid/v4';
-import { Input, FormGroup, Button } from 'xsolla-uikit';
+import { Input, FormGroup, Button, Checkbox } from 'xsolla-uikit';
 
 import { InputExample } from '../components/Elements/InputExample';
 import { ExampleStepTabs } from '../components/Elements/StepTabsExample';
@@ -95,6 +95,7 @@ export const Edits = ({component = 'input', state, setState}) => {
 
     <CSSright0 className='m-css-right'>
       <CSSright>
+        <FormGroup border='sm'>
         {component === 'input' &&
             <InputEdit state={state} setState={setState}/>
         }
@@ -111,8 +112,14 @@ export const Edits = ({component = 'input', state, setState}) => {
         {component === 'charts' &&
           <NotificationEdit state={state} setState={setState}/>
         }
+        </FormGroup>
 
-        <Button appearance='flatten'>Delete</Button>
+        <div style={{display: 'flex'}}>
+          <div className="xsui-form-group__label" style={{paddingRight:16}}>
+            <Button appearance='flatten'>Duplicate</Button>
+          </div>
+          <Button appearance='flatten'>Delete</Button>
+        </div>
 
       </CSSright>
     </CSSright0>
@@ -159,47 +166,69 @@ export const NotificationEdit = ({state = 'success', setState}) => {
 export const StepTabsEdit = ({state = {current: 1, total: 4}, setState}) => {
   return (
     <Fragment>
-      <FormGroup label='Current step'>
-      <select value={state['current']} onChange={(e) => {
-        setState({...state, current: parseInt(e.target.value)})
-      }}>
-        <option value={1}>1</option>
-        <option value={2}>2</option>
-        <option value={3}>3</option>
-        <option value={4}>4</option>
-        <option value={5}>5</option>
-        <option value={6}>6</option>
-      </select>
+      <FormGroup indentation='sm'>
+        <div style={{display: 'flex'}}>
+          <div className="xsui-form-group__label" style={{paddingRight:8}}>
+            Current step
+          </div>
+          <select value={state['current']} onChange={(e) => {
+            setState({...state, current: parseInt(e.target.value)})
+          }}>
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+            <option value={4}>4</option>
+            <option value={5}>5</option>
+            <option value={6}>6</option>
+          </select>
+        </div>
       </FormGroup>
-      <FormGroup label='Total steps'>
-      <select value={state['total']} onChange={(e) => {
-        setState({...state, total: parseInt(e.target.value)})
-      }}>
-        <option value={1}>1</option>
-        <option value={2}>2</option>
-        <option value={3}>3</option>
-        <option value={4}>4</option>
-        <option value={5}>5</option>
-        <option value={6}>6</option>
-      </select>
+
+      <FormGroup indentation='sm'>
+        <div style={{display: 'flex'}}>
+          <div className="xsui-form-group__label" style={{paddingRight:8}}>
+            Current step
+          </div>
+          <select value={state['total']} onChange={(e) => {
+            setState({...state, total: parseInt(e.target.value)})
+          }}>
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+            <option value={4}>4</option>
+            <option value={5}>5</option>
+          </select>
+        </div>
       </FormGroup>
+
+
+
     </Fragment>
   )
 }
 
-export const InputEdit = ({state = 1, setState}) => {
+export const InputEdit = ({state = {tooltip: false, size: 'md'}, setState}) => {
   return (
     <Fragment>
       <FormGroup label='Input size'>
-      <select value={state} onChange={(e) => {
-        debugger
-        setState(e.target.value)
+      <select value={state['size']} onChange={(e) => {
+        setState({...state, size: e.target.value})
       }}>
         <option value={'sm'}>Small</option>
         <option value={'md'}>Medium</option>
-        <option value={'lg'}>Large</option>
       </select>
       </FormGroup>
+
+      <Checkbox
+              name="checkbox"
+              label="Tooltip"
+              input={{
+                value: state['tooltip'],
+                onChange: ()=> setState({...state, tooltip: !state['tooltip']}),
+              }}
+            />
+
+
     </Fragment>
   )
 }

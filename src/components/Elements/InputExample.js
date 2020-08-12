@@ -1,13 +1,13 @@
 import React, {PureComponent, Fragment, useState} from 'react';
 // import FormGroup from '../form-group';
-import { Input, FormGroup } from 'xsolla-uikit';
+import { Input, FormGroup, Tooltip } from 'xsolla-uikit';
 
 // import InputPassword from '../input-password';
 // import Icon from '../icon';
 
 
 
-export function InputExample({state = 'sm'}) {
+export function InputExample({state = {tooltip: false, size: 'md'}}) {
 
   const [val, setVal] = useState()
 
@@ -19,9 +19,11 @@ export function InputExample({state = 'sm'}) {
       <div style={{maxWidth: 400, margin: '0'}}>
         <FormGroup
           label="Standard input"
-          caption="Default appearance and behavior. Used in most cases.">
+          tooltip={state['tooltip'] ? 'Tooltip text' : null}
+          // caption="Default appearance and behavior. Used in most cases."
+          >
           <Input
-            size={state}
+            size={state['size']}
             input={{name: 'default', value: val,
             onChange: setValue}} />
         </FormGroup>
