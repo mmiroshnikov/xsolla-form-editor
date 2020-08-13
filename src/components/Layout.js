@@ -17,7 +17,6 @@ import { Notice } from './Notice'
 import { Palette } from './Palette'
 import { Page } from './Elements/Page'
 import { initial } from '../data/initial';
-import { IntlProvider } from 'react-intl'
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
