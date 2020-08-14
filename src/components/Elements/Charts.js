@@ -165,7 +165,6 @@ const defaultCharts = [
     // type: 'funnel',
     data: chartSubscribers,
     cols: 2,
-    template: "main",
   },
 
 

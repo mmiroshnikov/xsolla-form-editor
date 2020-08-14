@@ -75,7 +75,7 @@ export const chart1 = {
         text: "Gross revenue, USD",
       },
       labels: {
-        format: "${value}",
+        format: '${value}',
         formatter: function() {
           const value = 123;
           return value % 100 === 0 ? `$${value / 1000}k` : `$${value}`;
